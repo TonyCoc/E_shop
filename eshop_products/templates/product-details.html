@@ -120,7 +120,7 @@
                             <ul class="nav nav-tabs">
                                 <li class="active"><a href="#details" data-toggle="tab">جزئیات</a></li>
                                 <li><a href="#tag" data-toggle="tab">برچسب</a></li>
-                                <li class=""><a href="#reviews" data-toggle="tab">نظرات (5)</a></li>
+                                <li class=""><a href="#reviews" data-toggle="tab">نظرات {{ comments_count }}</a></li>
                             </ul>
                         </div>
                         <div class="tab-content">
@@ -142,32 +142,39 @@
 
                             <div class="tab-pane fade" id="reviews">
                                 <div class="col-sm-12">
-                                    <ul>
-                                        <li><a href=""><i class="fa fa-user"></i>مشتـری 1</a></li>
-                                        <li><a href=""><i class="fa fa-clock-o"></i>12:41 ب . ظ</a></li>
-                                        <li><a href=""><i class="fa fa-calendar-o"></i>29 تیـر 1397</a></li>
-                                    </ul>
-                                    <p>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده ازلورملورم
-                                        ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان
-                                        گرافیک است. چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و
-                                        برای شرایط فعلی تکنولوژی مورد نیاز و کاربردهای متنوع با هدف بهبود ابزارهای
-                                        کاربردی می باشد. کتابهای زیادی در شصت و سه درصد گذشته، حال و آینده شناخت فراوان
-                                        جامعه و متخصصان را می طلبد تا با نرم افزارها شناخت بیشتری را برای طراحان رایانه
-                                        ای علی الخصوص طراحان خلاقی و فرهنگ پیشرو در زبان فارسی ایجاد کرد.</p>
-                                    <p><b>نظـر خود را بنویسیـد</b></p>
+                                    {% if comments.count == 0 %}
+                                        <p>اولین نظر را درباره این محصول بگذارید</p>
+                                    {% else %}
+                                        {% for comment in comments %}
+                                            <ul>
+                                                <li><a href=""><i
+                                                        class="fa fa-user"></i>{{ comment.person.get_username }}
+                                                </a></li>
+                                                <li><a href=""><i class="fa fa-clock-o"></i>{{ comment.time }}</a></li>
+                                                <li><a href=""><i class="fa fa-calendar-o"></i>{{ comment.date }}</a></li>
 
-                                    <form action="#">
-										<span>
-											<input type="text" placeholder="نام و نام خانوادگـی">
-											<input type="email" placeholder="آدرس ایمیـل">
-										</span>
-                                        <textarea name=""></textarea>
-                                        <b>رتبـه : </b> <img src="{% static 'images/product-details/rating.png' %}"
-                                                             alt="">
-                                        <button type="button" class="btn btn-default pull-left">
+                                            </ul>
+                                            <p id="comment_text">{{ comment.text }}</p>
+                                            <hr>
+                                        {% endfor %}
+                                        <p><b>نظـر خود را بنویسیـد</b></p>
+                                    {% endif %}
+                                    <form action="/comment_add" method="post">
+                                        {% csrf_token %}
+                                        {{ comment_form.product_id }}
+                                        {{ comment_form.person_id }}
+                                        {{ comment_form.text }}
+                                        {% if request.user.is_authenticated %}
+                                        <button type="submit" class="btn btn-default pull-left">
                                             ارسـال
                                         </button>
+                                        {% else %}
+                                        <button type="button" class="btn btn-default pull-left">
+                                            <a href="/login" style="text-decoration: none ; color: white">ابتدا وارد حساب خود شوید</a>
+                                        </button>
+                                        {% endif %}
                                     </form>
+
                                 </div>
                             </div>
 
