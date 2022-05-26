@@ -1,0 +1,1 @@
+default_app_config = 'eshop_user_profile.apps.EshopUserProfileConfig'
