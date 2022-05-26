@@ -7,7 +7,7 @@ SECRET_KEY = 'django-insecure-nlr3=a$65g7*k#ulb(go!sb(&!0a0!&ux@%1^r-xc(#jumx(ve
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['kianshop.herokuapp.com','127.0.0.1']
 
 CSRF_TRUSTED_ORIGINS = ["https://kianshop.herokuapp.com"]
 
@@ -33,7 +33,8 @@ INSTALLED_APPS = [
     'eshop_contactUs',
     'eshop_settings',
     'eshop_order',
-    'eshop_user_profile'
+    'eshop_user_profile',
+    'eshop_comment'
 ]
 
 MIDDLEWARE = [

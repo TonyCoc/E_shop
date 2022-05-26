@@ -2,9 +2,10 @@ import itertools
 
 from django.shortcuts import render, Http404
 from django.core.paginator import Paginator
+from eshop_comment.models import CommentModel
 from eshop_favlist.forms import Fave_list_form
 from eshop_order.forms import order_form
-from .forms import image_input
+from .forms import image_input, CommentForm
 from .models import *
 from eshop_favlist.models import Favorite_list
 from eshop_tag.models import Tag
@@ -39,7 +40,9 @@ def products(request):
 
 def product_detail(request, slug=None, p_id=None):
     product = Product.objects.get_by_slug_id(slug, p_id)
-
+    comments_count = product.commentmodel_set.count()
+    comments = CommentModel.objects.filter(product_id=product.id)
+    comment_form = CommentForm(request.POST or None, initial={'product_id': product.id, 'person_id': request.user.id})
     try:
         order_Form = order_form(request.POST or None, initial={'product_id': product.id})
     except:
@@ -78,7 +81,10 @@ def product_detail(request, slug=None, p_id=None):
         'rel_products': grouped_related_products,
         "form": order_Form,
         "add_fav_form":fav_Form,
-        "is_in_list":item_in_fave_list
+        "is_in_list":item_in_fave_list,
+        'comments': comments,
+        'comment_form': comment_form,
+        'comments_count': comments_count
     }
     return render(request, 'product-details.html', context)
 
