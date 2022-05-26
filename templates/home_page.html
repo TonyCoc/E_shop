@@ -1,0 +1,181 @@
+{% extends 'shared/_Mainlayout.html' %}
+{% block meta %}
+    <meta name="google-site-verification" content="2SgZiJDxwpV7txTI59DV2qYZjhxONL09DLBR6jwE6-U" />
+    <meta title="Kian Shop | دوره های برنامه نویسی ">
+{% endblock %}
+{% block title %}
+    <title>Kian Shop | دوره های برنامه نویسی</title>
+{% endblock %}
+
+{% load static %}
+{% block content %}
+    <section id="slider"><!--slider-->
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div id="slider-carousel" class="carousel slide" data-ride="carousel">
+                        <ol class="carousel-indicators" style="margin-bottom: -50px">
+                            <li data-target="#slider-carousel" data-slide-to="0" class="active"></li>
+                            <li data-target="#slider-carousel" data-slide-to="1"></li>
+                        </ol>
+
+                        <div class="carousel-inner">
+                            {% for slider in sliders %}
+                                <div class="item {{ forloop.first | yesno:'active,' }}">
+                                    <div class="col-sm-6">
+                                        <h2>{{ slider.product.title }}</h2>
+                                        <p>{{ slider.product.description | truncatechars:280}}</p>
+                                        <button type="button" class="btn btn-default get"><a href="products/{{ slider.product.id }}/{{ slider.product.slug }}" style="text-decoration: none ; color: whitesmoke">مشاهده</a></button>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <img src="/static{{ slider.product.image.url }}" class="girl img-responsive"
+                                             alt="{{ slider.product.title }}" width="350"/>
+
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        </div>
+
+                        <a href="#slider-carousel" class="left control-carousel hidden-xs" data-slide="prev">
+                            <i class="fa fa-angle-left"></i>
+                        </a>
+                        <a href="#slider-carousel" class="right control-carousel hidden-xs" data-slide="next">
+                            <i class="fa fa-angle-right"></i>
+                        </a>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section><!--/slider-->
+    <section>
+        <div class="container">
+            <div class="row">
+
+                <div class="recommended_items"><!--NewProduct_items-->
+                    <h2 class="title text-center">پر بازدید ترین محصولات</h2>
+
+                    <div id="recommended-item-carousel" class="carousel slide" data-ride="carousel">
+                        <div class="carousel-inner">
+                            {% for list in by_view %}
+                                <div class="item {{ forloop.first | yesno:'active,' }}">
+                                    {% for item in list %}
+                                        <div class="col-sm-3">
+                                            <div class="product-image-wrapper">
+                                                <div class="single-products">
+                                                    <div class="productinfo text-center">
+                                                        <img src="/static{{ item.image.url }}" alt=""/>
+                                                        {% if item.free == True %}
+                                                            <h2>رایگان</h2>
+                                                        {% else %}
+                                                            <h2>{{ item.price }} تومان</h2>
+                                                        {% endif %}
+                                                        <p>{{ item.title | truncatechars:40 }}</p>
+                                                        <a href="/products/{{ item.id }}/{{ item.slug }}"
+                                                           class="btn btn-default add-to-cart"><i
+                                                                class="fa fa-shopping-cart"></i>افزودن به سبـد خرید</a>
+                                                    </div>
+                                                    <div class="choose">
+                                                        <ul class="nav nav-pills nav-justified">
+                                                            <li>
+                                                                <a href="/products/{{ item.id }}/{{ item.slug }}">
+                                                                    <i class="fa fa-plus-square"></i>مشاهده
+                                                                </a>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    {% endfor %}
+                                </div>
+                            {% endfor %}
+                        </div>
+                        <a class="left recommended-item-control" href="#recommended-item-carousel" data-slide="prev">
+                            <i class="fa fa-angle-left"></i>
+                        </a>
+                        <a class="right recommended-item-control" href="#recommended-item-carousel" data-slide="next">
+                            <i class="fa fa-angle-right"></i>
+                        </a>
+                    </div>
+                </div><!--/NewProduct_items-->
+
+                <div class="col-sm-12 padding-right">
+                    <div class="features_items"><!--RetailSale_items-->
+                        <a href="shop-2.html"><h2 class="title text-center">آخرین محصولات</h2></a>
+                        <div id="new-item-carousel" class="carousel slide" data-ride="carousel">
+                            <div class="carousel-inner">
+                                {% for list in by_last %}
+                                    <div class="item {{ forloop.first | yesno:'active,' }}">
+                                        {% for item in list %}
+                                            <div class="col-sm-3">
+                                                <div class="product-image-wrapper">
+                                                    <div class="single-products">
+                                                        <div class="productinfo text-center">
+                                                            <img src="/static{{ item.image.url }}" alt=""/>
+                                                            {% if item.free == True %}
+                                                                <h2>رایگان</h2>
+                                                            {% else %}
+                                                                <h2>{{ item.price }} تومان</h2>
+                                                            {% endif %}
+                                                            <p>{{ item.title | truncatechars:40 }}</p>
+                                                            <a href="/products/{{ item.id }}/{{ item.slug }}"
+                                                               class="btn btn-default add-to-cart"><i
+                                                                    class="fa fa-shopping-cart"></i>افزودن به سبـد خرید</a>
+                                                        </div>
+                                                        <div class="product-overlay">
+                                                            <div class="overlay-content">
+                                                                {% if item.free == True %}
+                                                                    <h2>رایگان</h2>
+                                                                {% else %}
+                                                                    <h2>{{ item.price }} تومان</h2>
+                                                                {% endif %}
+                                                                <p>{{ item.title | truncatechars:40 }}</p>
+                                                                <a href="/products/{{ item.id }}/{{ item.slug }}"
+                                                                   class="btn btn-default add-to-cart"><i
+                                                                        class="fa fa-shopping-cart"></i>افزودن به سبـد
+                                                                    خرید</a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="choose">
+                                                        <ul class="nav nav-pills nav-justified">
+                                                            <li>
+                                                                <a href="/products/{{ item.id }}/{{ item.slug }}">
+                                                                    <i class="fa fa-plus-square"></i>مشاهده
+                                                                </a>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        {% endfor %}
+                                    </div>
+                                {% endfor %}
+                            </div>
+                            <a class="left recommended-item-control" href="#new-item-carousel" data-slide="prev">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+                            <a class="right recommended-item-control" href="#new-item-carousel" data-slide="next">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+                        </div>
+                    </div><!--RetailSale_items-->
+
+                    <div class="category-tab"><!--category-tab-->
+                        <div class="col-sm-12">
+                            <ul class="nav nav-tabs">
+                                {% for category in category %}
+                                    <li class=""><a href="/products/categories-{{ category.name }}">{{ category.title }}</a></li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    </div><!--/category-tab-->
+
+                </div>
+
+            </div>
+        </div>
+    </section>
+{% endblock %}

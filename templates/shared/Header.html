@@ -1,0 +1,126 @@
+{% load static %}
+<header id="header"><!--header-->
+    <div class="header_top"><!--header_top-->
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="contactinfo">
+                        <ul class="nav nav-pills">
+                            <li><a href="#"><i class="fa fa-phone"></i> 80 21 24 36 98+ </a></li>
+                            <li><a href="#"><i class="fa fa-envelope"></i> info@domain.com</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="social-icons pull-right">
+                        <ul class="nav navbar-nav">
+                            <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+                            <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+                            <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
+                            <li><a href="#"><i class="fa fa-dribbble"></i></a></li>
+                            <li><a href="#"><i class="fa fa-google-plus"></i></a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div><!--/header_top-->
+
+    <div class="header-middle"><!--header-middle-->
+        <div class="container">
+            <div class="row">
+                <!-- <div class="col-sm-4 header-middle-menu">
+                    <div class="shop-menu pull-left">
+                        <ul class="nav navbar-nav">
+                            <li><a href="checkout.html"><i class="fa fa-crosshairs"></i> پرداخت</a></li>
+                        </ul>
+                    </div>
+                </div> -->
+
+                <div class="col-sm-4" style="text-align: left;">
+                    <div class="logo">
+                        <a href="/"><img src="{% static 'images/home/logo.png' %}" alt="Logo"
+                                         style="text-align: center;"/></a>
+                    </div>
+                </div>
+
+                <div class="col-sm-8 header-middle-menu">
+                    <div class="shop-menu pull-right">
+                        <ul class="nav navbar-nav">
+                            {% if request.user.is_authenticated %}
+                                <li><a href="/user-panel"><img src="/static{{ request.user.profile_photo.photo.url }}" alt=""
+                                                     style="border-radius: 50%" width="30px" height="30px">
+                                    <p style="display: inline ; margin-right: 10px ; padding-right: -5px">{{ request.user.get_username }}</p>
+                                </a></li>
+                            {% endif %}
+                            {% if request.user.is_authenticated %}
+                                <li style="margin-top: 5px"><a href="/favorite_list"><i class="fa fa-star"></i> لیست علاقه مندی
+                                    ها</a></li>
+                            {% endif %}
+
+                            {% if not request.user.is_authenticated %}
+                                <li><a href="/login"><i class="fa fa-lock"></i> ورود</a></li>
+                            {% endif %}
+                            {% if not request.user.is_authenticated %}
+                                <li><a href="/register"><i class="fa fa-lock"></i> ثبت نام</a></li>
+                            {% endif %}
+                            {% if request.user.is_authenticated %}
+                                <li style="margin-top: 5px"><a href="/user-order" class="visible-lg visible-md"><i
+                                        class="fa fa-shopping-cart"></i> سبد خریـد</a></li>
+                            {% endif %}
+                            {% if request.user.is_authenticated %}
+                                <li style="margin-top: 5px"><a href="/logout"><i class="fa fa-ban"
+                                                                                 style="margin-left: 5px"></i>خروج از
+                                    حساب</a>
+                                </li>
+                            {% endif %}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div><!--/header-middle-->
+
+    <div class="header-bottom"><!--header-bottom-->
+        <div class="container">
+            <div class="row">
+
+                <div class="col-sm-3">
+                    <div class="search_box pull-left">
+                        <form action="/products/search" method="get">
+                            <input type="text" placeholder="جستـجو" name="q" value="{{ request.GET.q }}"/>
+                        </form>
+                    </div>
+                </div>
+
+                <div class="col-sm-9">
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle" data-toggle="collapse"
+                                data-target=".navbar-collapse">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                    </div>
+                    <div class="mainmenu pull-right">
+                        <ul class="nav navbar-nav collapse navbar-collapse">
+                            <li><a href="/">خـانه</a></li>
+                            <li><a href="/products">محصولات</a>
+                            </li>
+                            <li class="dropdown disabled"><a href="#">اخبـار<i class="fa fa-angle-down"></i></a>
+                                <ul role="menu" class="sub-menu disabled">
+                                    <li><a style="font-size: 15px" href="blog.html">آخریـن اخبـار(فعلا در دسترتس نیست)</a></li>
+                                    <li><a style="font-size: 15px" href="blog-single.html">صفحـه خبـر(فعلا در دسترتس نیست)</a></li>
+                                </ul>
+                            </li>
+                            <li><a href="/about_us">درباره مـا</a></li>
+                            <li><a href="/contact-us">تماس با مـا</a></li>
+                        </ul>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div><!--/header-bottom-->
+</header><!--/header-->

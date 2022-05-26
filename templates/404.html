@@ -1,0 +1,16 @@
+{% extends 'shared/_Mainlayout.html' %}
+{% load static %}
+{% block title %}
+    <title>404!</title>
+{% endblock %}
+{% block content %}
+    <div class="container text-center">
+		<div class="logo-404">
+			<h2><a href="/">برو به صفحـه اصلی</a></h2>
+		</div>
+		<div class="content-404">
+			<img src="{% static 'images/404/404.png' %}" class="img-responsive" alt="">
+			<h1><b>متأسفانـه</b> صفحه مورد نظـر شما یافت نشد!</h1>
+		</div>
+	</div>
+{% endblock %}

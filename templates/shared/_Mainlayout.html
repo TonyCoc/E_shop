@@ -1,0 +1,30 @@
+{% load static %}
+{% load render_partial %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    {% block title %}
+    {% endblock %}
+    {% block link %}
+    {% endblock %}
+    <meta name="description" content="اموزش برنامه نویسی">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% block meta %}
+    {% endblock %}
+    <meta name="description" content="">
+    <meta name="author" content="">
+    {% include 'shared/Header_ref.html'%}
+
+</head><!--/head-->
+
+<body>
+{% render_partial 'e_shop.views.header'%}
+{% block content %}
+{% endblock %}
+{% render_partial 'e_shop.views.footer' %}
+{% include 'shared/Footer_ref.html' %}
+
+</body>
+</html>
