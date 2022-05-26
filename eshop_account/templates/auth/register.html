@@ -1,0 +1,48 @@
+{% extends 'shared/_Mainlayout.html' %}
+{% block title %}
+    <title>ثبت نام</title>
+
+{% endblock %}
+{% block content %}
+    <div class="container">
+        <section id="form"><!--form-->
+            <div class="col-lg-6 col-lg-offset-3 col-md-6 col-md-offset-3 col-sm-6 col-sm-offset-3 col-xs-10 col-xs-offset-1">
+                <div class="signup-form"><!--sign up form-->
+                    <h2>ثبت نام کاربـر جدیـد</h2>
+                    <form method="post">
+                        {% csrf_token %}
+                        {% for error in form.email.errors %}
+                            {% if error == '' %}
+                                <p>{{ form.user_name.errors }}</p>
+                            {% else %}
+                                <p style="margin-bottom: 3px ; color: #ff443d">{{ form.email.errors }}</p>
+                            {% endif %}
+                        {% endfor %}
+                        {{ form.user_name }}
+                        {% for error in form.user_name.errors %}
+                            {% if error == 'نام کاربری حداقل باید 4 کاراکتر باشد' %}
+                                <p style="margin-bottom: 3px ; color: #ff443d">{{ error }}</p>
+                            {% endif %}
+                        {% endfor %}
+                        {{ form.email }}
+                        {{ form.first_name }}
+                        {{ form.last_name }}
+                        {{ form.password }}
+                        {{ form.password_2 }}
+                        {% for error in form.password_2.errors %}
+                            <p style="margin-bottom: 3px ; color: #ff443d">{{ error }}</p>
+                        {% endfor %}
+
+
+                        <button type="submit" class="btn btn-default">ثبت نام</button>
+                    </form>
+                </div><!--/sign up form-->
+            </div>
+        </section>
+    </div>
+    <!--/form-->
+{% endblock %}
+{#                        <input type="text" placeholder="نام کاربـری"/>#}
+{#                        <input type="email" placeholder="آدرس ایمیـل"/>#}
+{#                        <input type="password" placeholder="رمـز عبـور"/>#}
+

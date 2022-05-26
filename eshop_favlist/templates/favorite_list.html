@@ -1,0 +1,59 @@
+{% extends "shared/_Mainlayout.html" %}
+{% block title %}
+<title>لیست علاقه مندی ها</title>
+{% endblock %}
+{% block content %}
+    <section id="cart_items">
+		<div class="container">
+			<div class="breadcrumbs">
+				<ol class="breadcrumb">
+				  <li><a href="#">خانـه</a></li>
+				  <li class="active">پرداخت</li>
+				</ol>
+			</div><!--/breadcrums-->
+			<div class="table-responsive cart_info">
+				<table class="table table-condensed">
+                    {% if list|length <= 0 %}
+                        <p style="text-align: center ; margin-top: 20px ; font-size: 15px " class="text-danger">هیچ <span><a
+                                href="/products">محصولی</a></span> در لیست علاقه مندی شما وجود ندارد</p>
+
+                    {% else %}
+                        <thead>
+						<tr class="cart_menu">
+							<td class="image">کـالا</td>
+							<td class="description"></td>
+							<td class="price">قیمت</td>
+							<td></td>
+						</tr>
+					</thead>
+                        <tbody>
+						{% for item in list %}
+                            <tr>
+							<td class="cart_product">
+								<a href=""><img src="/static{{ item.image.url }}" alt="" width="110px" height="110px"></a>
+							</td>
+							<td class="cart_description" style="margin-right: 5px">
+								<h4><a href="/products/{{ item.id }}/{{ item.slug }}">{{ item.title }}</a></h4>
+								<p style="margin-top: 5px">شناسـه : {{ item.id }}</p>
+							</td>
+                            {% if item.free is False %}
+                            <td class="cart_price">
+								    <p> {{ item.price }} تومان </p>
+							    </td>
+                            {% else %}
+                                <td class="cart_price">
+								    <p> رایگان </p>
+							    </td>
+                            {% endif %}
+							<td class="cart_delete">
+								<a class="cart_quantity_delete" href="/delete_item_favorite/{{ item.id }}"><i class="fa fa-times"></i></a>
+							</td>
+						</tr>
+                        {% endfor %}
+					    </tbody>
+                    {% endif %}
+				</table>
+			</div>
+		</div>
+	</section>
+{% endblock %}

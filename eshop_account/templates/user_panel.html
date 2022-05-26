@@ -1,0 +1,30 @@
+{% extends 'shared/_Mainlayout.html' %}
+{% load static %}
+{% block title %}
+    <title>پنل کاربری</title>
+{% endblock %}
+{% block link %}
+    <link rel="stylesheet" href="{% static 'css/user-panel.css' %}">
+{% endblock %}
+{% block content %}
+    <div class="container" id="main">
+        <div class="row">
+            <div class="col-sm-12" id="panel">
+                    <div class="" id="picture">
+                        <a href="" style="text-decoration: none ; color: black"><img id="profile_photo" src="/static{{ request.user.profile_photo.photo.url }}" alt="" height="100px"
+                             width="100px">
+                        <p id="name">{{ request.user.get_username }}</p></a>
+                    </div>
+                    <hr>
+                    <div id="user_info" class="col-sm-12">
+                        <div class="col-sm-6 pull-right"> ایمیل : {{ request.user.email }}</div>
+                        <div class="col-sm-6">نام و نام خانوادگی : {{ request.user.get_full_name }}</div>
+                    </div>
+
+                    <div class="col-sm-4 pull-right bottom" id="edit-btn">
+                        <a href="/user-edit" class="btn-info">ویرایش اطلاعات</a>
+                    </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

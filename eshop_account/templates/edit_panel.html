@@ -1,0 +1,49 @@
+{% extends 'shared/_Mainlayout.html' %}
+{% block title %}
+    <title>ویرایش حساب کاربری</title>
+{% endblock %}
+{% block content %}
+    <div class="container">
+        <div class="contact-form">
+            <div class="status alert alert-success" style="display: none"></div>
+            <form id="main-contact-form" class="contact-form row" name="contact-form" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="form-group col-sm-6 pull-right">
+                    {{ form.first_name }}
+                    {% for error in form.first_name.errors %}
+                        <p class="text-danger" style="margin-top: 5px">{{ error }}</p>
+                    {% endfor %}
+                </div>
+                <div class="form-group col-sm-6">
+                    {{ form.last_name }}
+                </div>
+                <div class="form-group col-sm-6">
+                    <input type="email" name="email" value="{{ request.user.email }}" class="form-control"
+                           placeholder="ایمیل" required="" id="id_first_name">
+                    {% if email_error %}
+                        <p>ایمیل قبلا استفاده شده است</p>
+                    {% endif %}
+                </div>
+                <div class="form-group col-sm-6">
+                    <input type="text" name="user_name" value="{{ request.user.get_username }}" class="form-control"
+                           placeholder="نام کاربری" required="" id="id_first_name">
+                    {% if user_name_error %}
+                        <p>نام کاربری استفاده شده است</p>
+                    {% endif %}
+                    {% if user_name_len%}
+                        <p>نام کاربری خیلی کوتاه است</p>
+                    {% endif %}
+                </div>
+                <div class="col-sm-3">
+                    <label>تغییر عکس پروفایل:</label>
+                    <input type="file" name="image">
+                </div>
+
+                <div class="form-group col-sm-12 pull-right">
+
+                    <button type="submit" name="submit" class="btn btn-primary pull-right" value="">ارسال</button>
+                </div>
+            </form>
+        </div>
+    </div>
+{% endblock %}

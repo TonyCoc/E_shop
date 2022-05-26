@@ -1,0 +1,86 @@
+{% extends 'shared/_Mainlayout.html' %}
+{% block title %}
+    <title>سبد خرید</title>
+{% endblock %}
+{% block content %}
+    <section id="cart_items">
+		<div class="container">
+			<div class="breadcrumbs">
+				<ol class="breadcrumb">
+				  <li><a href="#">خانـه</a></li>
+				  <li class="active">پرداخت</li>
+				</ol>
+			</div><!--/breadcrums-->
+            {% if user_error %}
+                <p>شما هیچ سبد خرید فعالی ندارین میتواند از بخش <span><a href="/products">محصولات</a></span> کالای مورد نیاز خود را داخل سبد قرار بدهید</p>
+            {% else %}
+			<div class="table-responsive cart_info">
+				<table class="table table-condensed">
+                    {% if order_details|length <= 0 %}
+                        <p style="text-align: center ; margin-top: 20px ; font-size: 15px " class="text-danger">هیچ <span><a
+                                href="/products">محصولی</a></span> در سبد شما وجود ندارد</p>
+                    {% else %}
+                        <thead>
+						<tr class="cart_menu">
+							<td class="image">کـالا</td>
+							<td class="description"></td>
+							<td class="price">قیمت</td>
+							<td class="quantity">تعـداد</td>
+							<td class="total">مجمـوع</td>
+							<td></td>
+						</tr>
+					</thead>
+                        <tbody>
+						{% for item in order_details %}
+                            <tr>
+							<td class="cart_product">
+								<a href=""><img src="/static{{ item.product.image.url }}" alt="" width="110px" height="110px"></a>
+							</td>
+							<td class="cart_description" style="padding-right: 30px">
+								<h4><a href="">{{ item.product.title }}</a></h4>
+								<p style="margin-top: 5px">شناسـه : {{ item.product.id }}</p>
+							</td>
+							<td class="cart_price">
+								<p> {{ item.product.price }} تومان </p>
+							</td>
+							<td class="cart_quantity">
+								<div class="cart_quantity_button">
+                                    {{ item.count }}
+								</div>
+							</td>
+							<td class="cart_total">
+								<p class="cart_total_price"> {{ item.total_price}} تومان  </p>
+							</td>
+							<td class="cart_delete">
+								<a class="cart_quantity_delete" href="/user-order-detail-delete/{{ item.id }}"><i class="fa fa-times"></i></a>
+							</td>
+						</tr>
+                        {% endfor %}
+					    </tbody>
+                    {% endif %}
+				</table>
+			</div>
+            {% endif %}
+		</div>
+	</section>
+    {% if user_error is None %}
+    <section id="do_action">
+		<div class="container">
+			<div class="row">
+				<div class="col-sm-6 pull-right">
+					<div class="total_area">
+						<ul>
+							<li>مجمـوع سبـد خریـد <span>{{ total_p }}</span></li>
+							<li>مالیـات (1%) <span>{{ Taxation }}</span></li>
+							<li>هزینـه حمل و نقـل <span>رایـگان</span></li>
+							<li>مجمـوع <span>{{ full_total }}</span></li>
+						</ul>
+							<a class="btn btn-default update" href="shop.html">به روز رسانی سبـد خریـد </a>
+							<a class="btn btn-default check_out" href="checkout.html">پرداخت</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+    {% endif %}
+{% endblock %}

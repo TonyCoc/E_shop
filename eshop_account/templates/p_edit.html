@@ -1,0 +1,13 @@
+{% extends 'shared/_Mainlayout.html' %}
+{% block title %}
+    <title>عوض کردن پروفایل</title>
+{% endblock %}
+{% block content %}
+    <form action="" enctype="multipart/form-data" method="post">
+        {% csrf_token %}
+        <label>عکس جدید</label>
+        <input type="file" name="pic" accept="image/png , image/jpeg">
+        <button type="submit">b</button>
+    </form>
+
+{% endblock %}

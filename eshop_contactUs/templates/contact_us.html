@@ -1,0 +1,81 @@
+{% extends 'shared/_Mainlayout.html' %}
+{% load static %}
+{% block title %}
+<title>با ما در ارتباط باشید</title>
+{% endblock %}
+{% block content %}
+<div id="contact-page" class="container">
+    <div class="bg">
+        <div class="row">
+            <div class="container">
+                <div class="col-sm-12" style="overflow: hidden; margin-bottom: 40px">
+                    <h2 class="title text-center">تمـاس با مـا</h2>
+                    <div id="gmap" class="contact-map">
+                        <img src="{% static 'images/home/Map.jpg' %}" alt="Map">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-8">
+                <div class="contact-form">
+                    <h2 class="title text-center">با ما در ارتباط باشیـد</h2>
+                    <div class="status alert alert-success" style="display: none"></div>
+                    <form id="main-contact-form" class="contact-form row" name="contact-form" method="post">
+                        {% csrf_token %}
+                        <div class="form-group col-md-6">
+                            {{ Form.full_name }}
+                            {% for error in Form.full_name.errors %}
+                                <p class="text-danger">{{ error }}</p>
+                            {% endfor %}
+                        </div>
+                        <div class="form-group col-md-6">
+                            {{ Form.email }}
+                            {% for error in Form.email.errors %}
+                                <p class="text-danger">{{ error }}</p>
+                            {% endfor %}
+                        </div>
+                        <div class="form-group col-md-12">
+                            {{ Form.subject }}
+                            {% for error in Form.subject.errors %}
+                                <p class="text-danger">{{ error }}</p>
+                            {% endfor %}
+                        </div>
+                        <div class="form-group col-md-12">
+                            {{ Form.text }}
+                        </div>
+                        <div class="form-group col-md-12">
+                            <input type="submit" name="submit" class="btn btn-primary pull-right" value="ارسـال">
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="contact-info">
+                    <h2 class="title text-center">اطلاعات تماس</h2>
+                    <address>
+                        <p>{{ setting.title }}</p>
+                        <p> مکان : {{ setting.location }}</p>
+                        <p>تلفن تماس : {{ setting.phone }}</p>
+                        <p>فکس : {{ setting.fax }}</p>
+                        <p style="font-family: tahoma;">ایمیـل :{{ setting.email }}</p>
+                    </address>
+                    <div class="social-networks">
+                        <h2 class="title text-center">شبکـه های اجتـماعی</h2>
+                        <span class="socials-share share">
+									<ul>
+										<a href="#">
+											<li>
+												<label>اینستاگرام</label>
+												<img src="{% static 'images/product-details/Instagram.png' %}">
+											</li>
+										</a>
+									</ul>
+								</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
