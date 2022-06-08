@@ -1,8 +1,6 @@
 from django import forms
 from django.contrib.auth import get_user_model
-from django.contrib.auth.models import User
 from django.core import validators
-
 
 
 class user_edit_f(forms.Form):
@@ -12,9 +10,6 @@ class user_edit_f(forms.Form):
     )
     last_name = forms.CharField(
         widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'نام خانوادگی'}))
-
-
-
 
 
 class login(forms.Form):
@@ -27,6 +22,11 @@ class login(forms.Form):
         widget=forms.PasswordInput(attrs={'placeholder': 'رمز عبور', 'name': 'passWord'}),
         label=''
     )
+    remember_me = forms.BooleanField(
+        required=False,
+        widget=forms.CheckboxInput(attrs={"type": "checkbox", "class": "checkbox"}),
+        label=''
+    )
 
 
 user = get_user_model()
@@ -35,7 +35,7 @@ user = get_user_model()
 class register(forms.Form):
     user_name = forms.CharField(
         widget=forms.TextInput(attrs={'placeholder': 'نام کاربری', 'name': 'userName'}),
-        validators=[validators.MinLengthValidator(4,message="نام کاربری حداقل باید 4 کاراکتر باشد")],
+        validators=[validators.MinLengthValidator(4, message="نام کاربری حداقل باید 4 کاراکتر باشد")],
         label=''
     )
 
@@ -80,3 +80,31 @@ class register(forms.Form):
         if pass1 != pass2:
             raise forms.ValidationError('لطفا رمز عبور خود را درست تایید کنید')
         return pass2
+
+
+class reset_password_form(forms.Form):
+    reset_code = forms.CharField(
+        max_length=6,
+        widget=forms.TextInput(attrs={'placeholder': 'کد بازیابی'}),
+        label=''
+        )
+    email = forms.EmailField(
+        widget=forms.EmailInput(attrs={'placeholder': 'ایمیل'}),
+        label='', )
+    password = forms.CharField(
+        widget=forms.PasswordInput(attrs={'placeholder': 'رمز عبور جدید'}),
+        label=''
+    )
+    password_2 = forms.CharField(
+        widget=forms.PasswordInput(attrs={'placeholder': 'تایید رمز عبور جدید'}),
+        label=''
+    )
+    def clean_password_2(self):
+        pass1 = self.cleaned_data.get('password')
+        if len(pass1) < 8:
+            raise forms.ValidationError('رمز عبور حداقل باید 8 کاراکتر باشد')
+        pass2 = self.cleaned_data.get('password_2')
+        if pass1 != pass2:
+            raise forms.ValidationError('لطفا رمز عبور خود را درست تایید کنید')
+        return pass2
+

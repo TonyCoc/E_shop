@@ -20,7 +20,17 @@
                         <div class="col-sm-6 pull-right"> ایمیل : {{ request.user.email }}</div>
                         <div class="col-sm-6">نام و نام خانوادگی : {{ request.user.get_full_name }}</div>
                     </div>
+                    <div class="col-sm-12">
 
+                        <div class="col-sm-6 pull-right" style="margin-top: 25px">
+                            {% if not request.user.reset_password.is_unvalidated %}
+                            کد بازگردانی پسورد(مهم!!!)  :
+                            {{ request.user.reset_password.reset_code }}
+                            {% else %}
+                               <p class="text-danger"> کد بازگردانی شما منقضی شده است برای تایید دوباره از بخش "تماس با ما" تیکت بزنید</p>
+                            {% endif %}
+                        </div>
+                    </div>
                     <div class="col-sm-4 pull-right bottom" id="edit-btn">
                         <a href="/user-edit" class="btn-info">ویرایش اطلاعات</a>
                     </div>

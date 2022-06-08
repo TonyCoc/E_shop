@@ -8,4 +8,5 @@ urlpatterns = [
     path('logout/', log_out),
     path('user-panel',user_panel),
     path('user-edit',user_edit),
+    path('reset-password',reset_password)
 ]

@@ -1,11 +1,17 @@
+import time
+
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate
 from django.contrib.auth import login as auth_login, logout, get_user_model
-
 from eshop_user_profile.models import Profile_photo
+import random
 from .forms import *
 from django.contrib.auth.models import User
+from django.core.mail import send_mail
+
+
+# from .models import Reset_code
 
 
 def login_form(request):
@@ -15,6 +21,9 @@ def login_form(request):
         'error': False
     }
     if Login_ref.is_valid():
+
+        if not Login_ref.cleaned_data.get("remember_me"):
+            request.session.set_expiry(0)
         userName = Login_ref.cleaned_data.get('user_name')
         passWord = Login_ref.cleaned_data.get('password')
         user = authenticate(request, username=userName, password=passWord)
@@ -112,3 +121,35 @@ def user_edit(request):
         user_cur.save()
         return redirect('/user-panel')
     return render(request, 'edit_panel.html', context)
+
+
+def reset_password(request):
+    reset_password_ref = reset_password_form(request.POST or None)
+    context = {
+        "form": reset_password_ref,
+        'tryed_times': None,
+        "tryed_error" : None
+    }
+    if reset_password_ref.is_valid():
+        email = reset_password_ref.cleaned_data.get("email")
+
+        reset_code = reset_password_ref.cleaned_data.get("reset_code")
+
+        user_cur = User.objects.filter(email=email).first()
+        if user_cur.reset_password.is_unvalidated:
+            context['tryed_error'] = True
+        else:
+            context['tryed_times'] = user_cur.reset_password.reset_try_count
+            password = reset_password_ref.cleaned_data.get("password")
+
+            user_real_reset_code = user_cur.reset_password.reset_code
+
+            if reset_code == user_real_reset_code :
+                user_cur.set_password(password)
+            user_cur.reset_password.reset_try_count += 1
+            print(user_cur.reset_password.reset_try_count)
+            user_cur.reset_password.save()
+            user_cur.save()
+            time.sleep(1.5)
+            return redirect('/login')
+    return render(request,'auth/resetPass.html',context=context)
