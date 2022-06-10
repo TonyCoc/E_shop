@@ -14,6 +14,7 @@ urlpatterns = [
     path('', include('eshop_order.urls')),
     path('', include('eshop_favlist.urls')),
     path('',include("eshop_comment.urls")),
+    path('',include('eshop_Membership.urls')),
     path('about_us/',about_us)
 
 ]

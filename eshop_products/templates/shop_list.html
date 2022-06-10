@@ -15,17 +15,34 @@
                         {% endfor %}
                         <ul class="pagination">
                             {% if page_obj.has_previous %}
-                                <li><a href="?page={{ page_obj.previous_page_number }}">&laquo;</a></li>
+                                {% if request.GET.price is not None%}
+                                    <li><a href="?price={{ request.GET.price }}&page={{ page_obj.previous_page_number }} ">&raquo;</a></li>
+                                {% else %}
+                                    <li><a href="?page={{ page_obj.previous_page_number }} ">&raquo;</a></li>
+                                {% endif %}
                             {% endif %}
                             {% for page in page_obj.paginator.page_range %}
                                 {% if page == page_obj.number %}
-                                    <li class="active"><a href="?page={{ page }}">{{ page }}</a></li>
+                                    {% if request.GET.price is not None%}
+                                        <li class="active"><a href="?price={{ request.GET.price }}&page={{ page }}">{{ page }}</a></li>
+                                    {% else %}
+                                        <li class="active"><a href="?page={{ page }}">{{ page }}</a></li>
+                                    {% endif %}
                                 {% else %}
-                                    <li><a href="?page={{ page }}">{{ page }}</a></li>
+                                        {% if request.GET.price is not None%}
+                                            <li><a href="?price={{ request.GET.price }}&page={{ page }}">{{ page }}</a></li>
+                                        {% else %}
+                                            <li><a href="?page={{ page }}">{{ page }}</a></li>
+                                        {% endif %}
                                 {% endif %}
                             {% endfor %}
                             {% if page_obj.has_next %}
-                                <li><a href="?page={{ page_obj.next_page_number }}">&raquo;</a></li>
+                                {% if request.GET.price is not None%}
+                                    <li><a href="?price={{ request.GET.price }}&page={{ page_obj.next_page_number }} ">&raquo;</a></li>
+                                {% else %}
+                                    <li><a href="?page={{ page_obj.next_page_number }} ">&raquo;</a></li>
+                                {% endif %}
+
                             {% endif %}
 
                         </ul>
@@ -48,18 +65,18 @@
 {#                            </div>#}
 {#                        </div><!--/brands_products-->#}
 
-{#                        <div class="price-range"><!--price-range-->#}
-{#                            <h2>فیلتـر قیمـت</h2>#}
-{#                            <div class="well">#}
-{#                                <input type="text" class="span2" value="" data-slider-min="0" data-slider-max="1000000"#}
-{#                                       data-slider-step="5" data-slider-value="[250,450]" id="sl2"><br/>#}
-{#                                <b>1.000.000 ريال</b> <b class="pull-left">0 ريال</b>#}
-{#                            </div>#}
-{#                        </div><!--/price-range-->#}
-
-{#                        <div class="shipping text-center"><!--shipping-->#}
-{#                            <img src="images/home/shipping.jpg" alt=""/>#}
-{#                        </div><!--/shipping-->#}
+                        <div class="price-range"><!--price-range-->
+                            <h2>فیلتـر قیمـت</h2>
+                            <div class="well">
+                                <form action="" method="get">
+                                    <input type="text" class="span2" value="{{ request.GET.price }}" data-slider-min="0" data-slider-max="1000000"
+                                           data-slider-step="5" data-slider-value="[250,450]" id="sl2" name="price"><br/>
+                                    <input type="hidden" name="page" value="{{ request.GET.page }}">
+                                    <b>1.000.000 تومن</b> <b class="pull-left">0 تومن</b>
+                                    <button type="submit" class="btn btn-default" style="margin-top: 10px">اعمال فیلتر</button>
+                                </form>
+                            </div>
+                        </div><!--/price-range-->
 
                     </div>
                 </div>

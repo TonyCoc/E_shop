@@ -19,6 +19,15 @@ class ProductManager(models.Manager):
             return None
         return Slug.first()
 
+    def search_and_price(self, qs, min_price, max_price):
+        lookup = Q(title__icontains=qs) | Q(description__icontains=qs) | Q(tag__title__icontains=qs)
+        products = self.get_queryset().filter(lookup, active=True,price__range = (min_price,max_price),free=False).distinct()
+
+        if products is None:
+            return None
+        else:
+            return products
+
     def search(self, qs):
         lookup = Q(title__icontains=qs) | Q(description__icontains=qs) | Q(tag__title__icontains=qs)
 

@@ -10,17 +10,23 @@ from .models import *
 from eshop_favlist.models import Favorite_list
 from eshop_tag.models import Tag
 from eshop_products_category.models import category
-from e_shop.utils import my_grouper,price_show
-
-
-
+from e_shop.utils import my_grouper, price_show
 
 
 def products(request):
-    Products = Product.objects.active_check()
+    query = None
+    splited = None
+    try:
+        query = request.GET.get('price')
+        splited = query.split(',')
+        min = int(splited[0])
+        max = int(splited[1])
+        Products = Product.objects.filter(active=True, price__range=(min, max))
+    except:
+        Products = Product.objects.active_check()
     for item in Products:
         item.price = price_show(item.price)
-    paginaitor = Paginator(Products, 9)
+    paginaitor = Paginator(Products, 4)
     page_number = request.GET.get('page')
     page_obj = paginaitor.get_page(page_number)
 
@@ -62,7 +68,7 @@ def product_detail(request, slug=None, p_id=None):
     except:
         pass
     if product is None:
-        return render(request ,'404.html')
+        return render(request, '404.html')
     product.views += 1
     product.save()
     product.price = price_show(product.price)
@@ -80,8 +86,8 @@ def product_detail(request, slug=None, p_id=None):
         'galleries': grouped_galleries,
         'rel_products': grouped_related_products,
         "form": order_Form,
-        "add_fav_form":fav_Form,
-        "is_in_list":item_in_fave_list,
+        "add_fav_form": fav_Form,
+        "is_in_list": item_in_fave_list,
         'comments': comments,
         'comment_form': comment_form,
         'comments_count': comments_count
@@ -93,7 +99,7 @@ def product_by_category(request, category_slug=None):
     products = Product.objects.active_check()
     products = products.filter(categories__name__exact=category_slug)
     if products.filter(categories__active=False):
-        return render(request ,'404.html')
+        return render(request, '404.html')
     for item in products:
         item.price = price_show(item.price)
     paginaitor = Paginator(products, 10)
@@ -103,12 +109,12 @@ def product_by_category(request, category_slug=None):
 
     try:
         if int(page_number) > page_obj.number:
-            return render(request ,'404.html')
+            return render(request, '404.html')
     except:
         pass
 
     if products.count() == 0:
-        return render(request ,'404.html')
+        return render(request, '404.html')
 
     context = {
         'obj': products,
@@ -136,4 +142,4 @@ def edit_product(request):
         image = request.FILES['image']
         product.image = image
         product.save()
-    return render(request, 'edit.html',context)
+    return render(request, 'edit.html', context)
