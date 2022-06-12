@@ -19,7 +19,7 @@ def favorite_list_show(request):
             item_list.append(item.product)
         context['list'] = item_list
     return render(request,"favorite_list.html",context)
-
+@login_required(login_url="/login")
 def add_product_to_list(request):
     fave_list = Fave_list_form(request.POST or None)
     if fave_list.is_valid():
