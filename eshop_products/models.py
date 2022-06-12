@@ -52,8 +52,8 @@ class Product(models.Model):
     free = models.BooleanField(default=False)
     slug = models.SlugField(blank=True)
     categories = models.ManyToManyField(category, null=True, blank=True)
-    views = models.IntegerField(default=0)
-
+    views = models.IntegerField(default=0) 
+    teacher = models.CharField(default="مشخص نشده!!!",max_length=50)
     objects = ProductManager()
 
     def __str__(self):
