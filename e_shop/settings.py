@@ -14,6 +14,7 @@ CSRF_TRUSTED_ORIGINS = ["https://kianshop.herokuapp.com"]
 # Application definition
 
 INSTALLED_APPS = [
+    'rest_framework',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',

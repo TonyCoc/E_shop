@@ -1,4 +1,6 @@
+from http import server
 import itertools
+from django.http import JsonResponse
 
 from django.shortcuts import render, Http404
 from django.core.paginator import Paginator
@@ -11,7 +13,7 @@ from eshop_favlist.models import Favorite_list
 from eshop_tag.models import Tag
 from eshop_products_category.models import category
 from e_shop.utils import my_grouper, price_show
-
+from .serializer import Product_serializer
 
 def products(request):
     query = None
@@ -143,3 +145,8 @@ def edit_product(request):
         product.image = image
         product.save()
     return render(request, 'edit.html', context)
+
+def product_api(request):
+    products = Product.objects.all()
+    serializer = Product_serializer(products,many=True)
+    return JsonResponse(serializer.data,safe=False)
