@@ -36,7 +36,8 @@ INSTALLED_APPS = [
     'eshop_order',
     'eshop_user_profile',
     'eshop_comment',
-    'eshop_Membership'
+    'eshop_Membership',
+    'eshop_admin'
 ]
 
 MIDDLEWARE = [
