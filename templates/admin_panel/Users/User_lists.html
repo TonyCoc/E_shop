@@ -16,16 +16,20 @@
         </tr>
       </thead>
       <tbody>
-      {% for user in object_list %}
-        <tr>
-          <td class="py-1">
-            <img src="{{user.profile_photo.photo.url}}" alt="image">
-          </td>
-          <td> {{ user.username }} </td>
-          <td> {{ user.reset_password.is_unvalidated }} </td>
-{#          <td> May 15, 2015 </td>#}
-        </tr>
-      {% endfor %}
+      {% if object_list|length == 0 %}
+        <p class="text-danger">user does not exists</p>
+      {% else %}
+        {% for user in object_list %}
+            <tr>
+              <td class="py-1">
+                <img src="{{user.profile_photo.photo.url}}" alt="image">
+              </td>
+              <td> {{ user.username }} </td>
+              <td> {{ user.reset_password.is_unvalidated }} </td>
+    {#          <td> May 15, 2015 </td>#}
+            </tr>
+        {% endfor %}
+      {% endif %}
       </tbody>
     </table>
   </div>

@@ -147,7 +147,6 @@ def reset_password(request):
             if reset_code == user_real_reset_code :
                 user_cur.set_password(password)
             user_cur.reset_password.reset_try_count += 1
-            print(user_cur.reset_password.reset_try_count)
             user_cur.reset_password.save()
             user_cur.save()
             time.sleep(1.5)

@@ -5,7 +5,7 @@
 {% include 'admin_panel/partials/_Header_ref.html' %}
   <body>
     <div class="container-scroller">
-      {% include 'admin_panel/partials/_navbar.html' %}
+      {% include 'admin_panel/partials/_navbar.html' with nav_type=nav_type %}
       <div class="container-fluid page-body-wrapper">
         <!-- partial:../../partials/_sidebar.html -->
         {% render_partial "eshop_admin.views._sidebar_partial" %}
