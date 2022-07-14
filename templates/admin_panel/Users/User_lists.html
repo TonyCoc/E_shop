@@ -12,6 +12,7 @@
           <th> User </th>
           <th> First name </th>
           <th> is_unvalidated </th>
+          <th> is Baned </th>
 {#          <th> Deadline </th>#}
         </tr>
       </thead>
@@ -22,10 +23,11 @@
         {% for user in object_list %}
             <tr>
               <td class="py-1">
-                <img src="{{user.profile_photo.photo.url}}" alt="image">
+                  <a href="users/{{ user.id }}"><img src="{{user.profile_photo.photo.url}}" alt="{{ user.username }}"></a>
               </td>
-              <td> {{ user.username }} </td>
+              <td><a href="users/{{ user.id }}" style="text-decoration: none ;color: black">{{ user.username }}</a> </td>
               <td> {{ user.reset_password.is_unvalidated }} </td>
+              <td> {{ user.reset_password.is_baned }} </td>
     {#          <td> May 15, 2015 </td>#}
             </tr>
         {% endfor %}
