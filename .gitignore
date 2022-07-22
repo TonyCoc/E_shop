@@ -5,4 +5,5 @@ Dockerfile
 docker-compose.yml
 .idea/
 .idea
+static_cdn/
 static_cdn
