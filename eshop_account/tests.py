@@ -10,6 +10,7 @@ class Account_TestCase(TestCase):
         self.assertEqual(user.email,"test@test.com")
         self.assertEqual(user.reset_password.is_baned,False)
         self.assertFalse(user.reset_password is None)
+        self.assertFalse(user.profile_photo.photo is None)
 
 class home_page_test(TestCase):
     def test_url(self):

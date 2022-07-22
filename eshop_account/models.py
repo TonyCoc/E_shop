@@ -35,3 +35,4 @@ def pre_save_Reset_code(instance,sender,**kwargs):
         instance.is_unvalidated = False
     if instance.reset_code is None:
         instance.reset_code = str(uuid.uuid4()).replace('-','').upper()[:6]
+
