@@ -36,16 +36,16 @@
       <li class="nav-item nav-profile dropdown">
         <a class="nav-link dropdown-toggle" id="profileDropdown" href="#" data-bs-toggle="dropdown" aria-expanded="false">
           <div class="nav-profile-img">
-            <img src={% static "admin-panel/images/faces/face1.jpg" %} alt="image">
+            <img src="/static{{ request.user.profile_photo.photo.url }}" alt="image">
             <span class="availability-status online"></span>
           </div>
           <div class="nav-profile-text">
-            <p class="mb-1 text-black">David Greymaax</p>
+            <p class="mb-1 text-black">{{ request.user.username }}</p>
           </div>
         </a>
         <div class="dropdown-menu navbar-dropdown" aria-labelledby="profileDropdown">
           <div class="dropdown-divider"></div>
-          <a class="dropdown-item" href="#">
+          <a class="dropdown-item" href="/logout/">
             <i class="mdi mdi-logout me-2 text-primary"></i> Signout </a>
         </div>
       </li>
@@ -55,7 +55,7 @@
         </a>
       </li>
       <li class="nav-item dropdown">
-        <a class="nav-link count-indicator dropdown-toggle" id="messageDropdown" href="#" data-bs-toggle="dropdown" aria-expanded="false">
+        <a class="nav-link count-indicator dropdown-toggle" id="messageDropdown" href="#" data-bs-toggle="dropdown" aria-expanded="false" disabled="">
           <i class="mdi mdi-email-outline"></i>
           <span class="count-symbol bg-warning"></span>
         </a>
@@ -96,7 +96,7 @@
         </div>
       </li>
       <li class="nav-item dropdown">
-        <a class="nav-link count-indicator dropdown-toggle" id="notificationDropdown" href="#" data-bs-toggle="dropdown">
+        <a class="nav-link count-indicator dropdown-toggle" id="notificationDropdown" href="#" data-bs-toggle="dropdown" disabled="">
           <i class="mdi mdi-bell-outline"></i>
           <span class="count-symbol bg-danger"></span>
         </a>
@@ -143,7 +143,7 @@
         </div>
       </li>
       <li class="nav-item nav-logout d-none d-lg-block">
-        <a class="nav-link" href="#">
+        <a class="nav-link" href="/logout/">
           <i class="mdi mdi-power"></i>
         </a>
       </li>

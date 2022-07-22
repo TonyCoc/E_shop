@@ -19,7 +19,7 @@
       {% for obj in object_list %}
         <tr>
           <td class="py-1">
-              <a href="products/{{ obj.id }}" style="text-decoration: none"><img src="{{obj.image.url}}" alt="image"></a>
+              <a href="products/{{ obj.id }}" style="text-decoration: none"><img src="/static{{obj.image.url}}" alt="image"></a>
           </td>
           <td><a href="products/{{ obj.id }}" style="text-decoration: none ; color: black">{{ obj.title }}</a> </td>
             <td> <a href="products/{{ obj.id }}" style="text-decoration: none ; color: black">{{ obj.description|truncatechars:20 }} </a></td>
