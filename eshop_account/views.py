@@ -15,10 +15,15 @@ from django.core.mail import send_mail
 
 
 def login_form(request):
+    try:
+        logout(request)
+    except:
+        pass
     Login_ref = login(request.POST or None)
     context = {
         'Login_form': Login_ref,
-        'error': False
+        'error': False,
+        'baned_error':None
     }
     if Login_ref.is_valid():
 
@@ -27,6 +32,13 @@ def login_form(request):
         userName = Login_ref.cleaned_data.get('user_name')
         passWord = Login_ref.cleaned_data.get('password')
         user = authenticate(request, username=userName, password=passWord)
+        user_check = User.objects.filter(username=userName).first()
+        try:
+            if user_check.reset_password.is_baned:
+                context['baned_error'] = True
+                return render(request, 'auth/login.html', context)
+        except:
+            pass
         if user is not None:
             auth_login(request, user)
             return redirect('/')
@@ -147,7 +159,6 @@ def reset_password(request):
             if reset_code == user_real_reset_code :
                 user_cur.set_password(password)
             user_cur.reset_password.reset_try_count += 1
-            print(user_cur.reset_password.reset_try_count)
             user_cur.reset_password.save()
             user_cur.save()
             time.sleep(1.5)

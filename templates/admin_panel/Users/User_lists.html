@@ -1,0 +1,40 @@
+{% extends "admin_panel/partials/blank-page.html" %}
+{% block content %}
+<div class="col-lg-12 grid-margin stretch-card">
+<div class="card">
+  <div class="card-body">
+    <h4 class="card-title">Striped Table</h4>
+    <p class="card-description"> Add class <code>.table-striped</code>
+    </p>
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th> User </th>
+          <th> First name </th>
+          <th> is_unvalidated </th>
+          <th> is Baned </th>
+{#          <th> Deadline </th>#}
+        </tr>
+      </thead>
+      <tbody>
+      {% if object_list|length == 0 %}
+        <p class="text-danger">user does not exists</p>
+      {% else %}
+        {% for user in object_list %}
+            <tr>
+              <td class="py-1">
+                  <a href="users/{{ user.id }}"><img src="/static{{user.profile_photo.photo.url}}" alt="{{ user.username }}"></a>
+              </td>
+              <td><a href="users/{{ user.id }}" style="text-decoration: none ;color: black">{{ user.username }}</a> </td>
+              <td> {{ user.reset_password.is_unvalidated }} </td>
+              <td> {{ user.reset_password.is_baned }} </td>
+    {#          <td> May 15, 2015 </td>#}
+            </tr>
+        {% endfor %}
+      {% endif %}
+      </tbody>
+    </table>
+  </div>
+</div>
+</div>
+{% endblock %}

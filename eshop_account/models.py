@@ -19,6 +19,8 @@ class Reset_password(models.Model):
 
     is_unvalidated = models.BooleanField(default=False)
 
+    is_baned = models.BooleanField(default=False ,null=False ,blank=False)
+
 @receiver(post_save,sender=User)
 def post_save_Reset_code(instance , sender , created ,**kwargs ):
     if created:

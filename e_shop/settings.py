@@ -6,7 +6,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-nlr3=a$65g7*k#ulb(go!sb(&!0a0!&ux@%1^r-xc(#jumx(ve'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = int(os.environ.get('DEBUG',default=1))
+DEBUG = int(os.environ.get('DEBUG',default=0))
 ALLOWED_HOSTS = ['kianshop.herokuapp.com','127.0.0.1']
 
 CSRF_TRUSTED_ORIGINS = ["https://kianshop.herokuapp.com"]
@@ -36,7 +36,8 @@ INSTALLED_APPS = [
     'eshop_order',
     'eshop_user_profile',
     'eshop_comment',
-    'eshop_Membership'
+    'eshop_Membership',
+    'eshop_admin'
 ]
 
 MIDDLEWARE = [

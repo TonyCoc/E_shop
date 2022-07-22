@@ -2,5 +2,9 @@ __pycache__
 *.pyc
 venv/
 Dockerfile
+docker-compose.yml
 .idea/
 .idea
+static_cdn/
+static_cdn
+db.sqlite3
