@@ -47,7 +47,7 @@ class Product(models.Model):
     title = models.CharField(max_length=45, verbose_name="عنوان")
     description = models.TextField(default='none', verbose_name='توضیحات')
     price = models.IntegerField(default='0', verbose_name='قیمت')
-    image = models.ImageField(upload_to='products/')
+    image = models.ImageField(upload_to='products/',null=True,blank=True)
     active = models.BooleanField(default=False, verbose_name='وضعیت')
     free = models.BooleanField(default=False)
     slug = models.SlugField(blank=True)
