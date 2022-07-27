@@ -1,3 +1,7 @@
 from django.test import TestCase
-
-# Create your tests here.
+from .models import Product
+#
+# class product_Test(TestCase):
+#
+#     def setUp(self):
+#         product =
