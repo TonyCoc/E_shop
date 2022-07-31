@@ -8,3 +8,4 @@ docker-compose.yml
 static_cdn/
 static_cdn
 db.sqlite3
+README.md
