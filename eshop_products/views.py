@@ -59,12 +59,17 @@ def product_detail(request, slug=None, p_id=None):
         fav_Form = Fave_list_form(request.POST or None, initial={'product_id': product.id})
     except:
         return render(request, '404.html')
+
     product_category_title = product.categories.first()
     galleries = Product_gallery.objects.filter(product_id=p_id)
     related_category = category.objects.filter(title=product_category_title)
-    related_products = related_category.first().product_set.all().distinct()
+    try:
+        related_products = related_category.first().product_set.all().distinct()
+    except:
+        related_products = []
     grouped_related_products = list(my_grouper(3, related_products))
     grouped_galleries = list(my_grouper(3, galleries))
+
     try:
         user_list = Favorite_list.objects.filter(user_id=request.user.id).first()
     except:
