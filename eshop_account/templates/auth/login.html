@@ -14,6 +14,10 @@
                             {% csrf_token %}
                             {{ Login_form.user_name }}
                             {{ Login_form.password }}
+                            {{ Login_form.captcha }}
+                            {% if Login_form.captcha.errors %}
+                                <p class="text-danger">کد وارد شده اشتباه میباشد</p>
+                            {% endif %}
 {#                            <input type="text" placeholder="نام کاربری" name="userName"/>#}
 {#                            <input type="password" placeholder="رمز عبور" name="passWord"/>#}
                             {% if error %}

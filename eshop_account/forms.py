@@ -1,7 +1,7 @@
 from django import forms
 from django.contrib.auth import get_user_model
 from django.core import validators
-
+from captcha.fields import CaptchaField
 
 class user_edit_f(forms.Form):
     first_name = forms.CharField(
@@ -27,6 +27,7 @@ class login(forms.Form):
         widget=forms.CheckboxInput(attrs={"type": "checkbox", "class": "checkbox"}),
         label=''
     )
+    captcha = CaptchaField()
 
 
 user = get_user_model()

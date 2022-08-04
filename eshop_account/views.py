@@ -3,15 +3,11 @@ import time
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate
-from django.contrib.auth import login as auth_login, logout, get_user_model
+from django.contrib.auth import login as auth_login, logout
 from eshop_user_profile.models import Profile_photo
-import random
 from .forms import *
 from django.contrib.auth.models import User
-from django.core.mail import send_mail
-
-
-# from .models import Reset_code
+from captcha.image import ImageCaptcha
 
 
 def login_form(request):
@@ -23,7 +19,8 @@ def login_form(request):
     context = {
         'Login_form': Login_ref,
         'error': False,
-        'baned_error':None
+        'baned_error':None,
+
     }
     if Login_ref.is_valid():
 

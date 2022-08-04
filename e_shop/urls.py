@@ -16,6 +16,7 @@ urlpatterns = [
     path('',include("eshop_comment.urls")),
     path('',include('eshop_Membership.urls')),
     path('',include('eshop_admin.urls')),
+    path('/captcha',include("captcha.urls")),
     path('about_us/',about_us)
 
 ]

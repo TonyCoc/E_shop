@@ -37,7 +37,8 @@ INSTALLED_APPS = [
     'eshop_user_profile',
     'eshop_comment',
     'eshop_Membership',
-    'eshop_admin'
+    'eshop_admin',
+    "captcha"
 ]
 
 MIDDLEWARE = [
