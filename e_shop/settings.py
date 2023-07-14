@@ -7,9 +7,10 @@ SECRET_KEY = 'django-insecure-nlr3=a$65g7*k#ulb(go!sb(&!0a0!&ux@%1^r-xc(#jumx(ve
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = int(os.environ.get('DEBUG',default=1))
-ALLOWED_HOSTS = ['kianshop.herokuapp.com','127.0.0.1']
 
-CSRF_TRUSTED_ORIGINS = ["https://kianshop.herokuapp.com"]
+ALLOWED_HOSTS = [""]
+
+CSRF_TRUSTED_ORIGINS = [""]
 
 # Application definition
 
@@ -57,7 +58,7 @@ ROOT_URLCONF = 'e_shop.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR / 'templates']
+        'DIRS': [BASE_DIR / 'Templates']
         ,
         'APP_DIRS': True,
         'OPTIONS': {

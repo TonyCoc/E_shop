@@ -20,7 +20,6 @@ def login_form(request):
         'Login_form': Login_ref,
         'error': False,
         'baned_error':None,
-
     }
     if Login_ref.is_valid():
 
