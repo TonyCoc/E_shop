@@ -1,0 +1,10 @@
+__pycach__/
+__pycach__
+**/__pycach__/
+*/__pycach__/*
+.idea/
+search/.idea/
+static_cdn/
+Dockerfile
+*.pyc
+db.sqlite3
