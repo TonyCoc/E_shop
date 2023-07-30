@@ -33,6 +33,9 @@
                     </div>
                     <div class="col-sm-4 pull-right bottom" id="edit-btn">
                         <a href="/user-edit" class="btn-info">ویرایش اطلاعات</a>
+                        {% if is_oauth %}
+                            <a href="/user-edit" class="btn-danger" style="border-radius: 5px;padding: 3px">تغییر رمز عبور</a>
+                        {% endif %}
                     </div>
             </div>
         </div>

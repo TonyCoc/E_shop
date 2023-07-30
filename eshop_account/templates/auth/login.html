@@ -1,4 +1,13 @@
 {% extends 'shared/_Mainlayout.html' %}
+{% load socialaccount %}
+{% load static %}
+
+
+{% block meta %}
+<link rel="stylesheet" href="{% static 'css/login.css' %}">
+{% endblock %}
+
+
 {% block title %}
 <title>ورود به حساب</title>
 {% endblock %}
@@ -15,6 +24,11 @@
                             {{ Login_form.user_name }}
                             {{ Login_form.password }}
                             {{ Login_form.captcha }}
+                            <div class="row">
+                                    <div class="col-md-12">
+                                      <a class="btn btn-lg btn-google btn-block text-uppercase btn-outline" href="{% provider_login_url 'google' %}" role="button"><img src="https://img.icons8.com/color/16/000000/google-logo.png">ورود با گوگل</a>
+                                    </div>
+                            </div>
                             {% if Login_form.captcha.errors %}
                                 <p class="text-danger">کد وارد شده اشتباه میباشد</p>
                             {% endif %}

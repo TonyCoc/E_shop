@@ -69,12 +69,16 @@ def register_form(request):
         auth_login(request, user)
         Profile_photo.objects.create(user_id=request.user.id)
         return redirect('/')
-    return render(request, 'auth/register.html', context)
+    else:
+        return render(request, 'auth/register.html', context)
 
 
 @login_required(login_url='/login')
 def user_panel(request):
-    context = {}
+
+    context = {
+        "is_oauth":request.user.has_usable_password()
+    }
     return render(request, 'user_panel.html', context)
 
 

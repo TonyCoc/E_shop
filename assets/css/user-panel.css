@@ -3,6 +3,16 @@
     src: url('../fonts/Lalezar-Regular.ttf') format('truetype');
 }
 
+.btn-danger {
+    border-radius: 5px;
+    padding: 3px;
+    position: relative;
+}
+.btn-info {
+    border-radius: 5px;
+    padding: 3px;
+    position: relative;
+}
 #panel {
     border: #f9f9f2 solid 1px;
     border-radius: 5px;
@@ -37,10 +47,8 @@
     margin-right: 12px;
     padding-bottom: 20px;
 }
-.btn-info {
-    border-radius: 5px;
-    padding: 3px;
-    position: relative;
-}
+
+
+
 
 

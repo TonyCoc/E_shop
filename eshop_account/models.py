@@ -3,7 +3,7 @@ from django.contrib.auth.models import User
 from django.db import models
 from django.db.models.signals import post_save, pre_save
 from django.dispatch import receiver
-
+from eshop_user_profile.models import Profile_photo
 
 
 class Reset_password(models.Model):
@@ -24,6 +24,13 @@ class Reset_password(models.Model):
 @receiver(post_save,sender=User)
 def post_save_Reset_code(instance , sender , created ,**kwargs ):
     if created:
+        try:
+            prof = Profile_photo.objects.create(user=instance)
+            prof.save()
+            create_obj = Reset_password.objects.create(user=instance,
+                                                       reset_code=str(uuid.uuid4()).replace('-', '').upper()[:6])
+            create_obj.save()
+        except:
             create_obj = Reset_password.objects.create(user = instance,reset_code = str(uuid.uuid4()).replace('-','').upper()[:6] )
             create_obj.save()
 
@@ -35,4 +42,21 @@ def pre_save_Reset_code(instance,sender,**kwargs):
         instance.is_unvalidated = False
     if instance.reset_code is None:
         instance.reset_code = str(uuid.uuid4()).replace('-','').upper()[:6]
+
+
+
+# @receiver(pre_save, sender=User)
+# def pre_save_user_profile(instance, sender, **kwargs):
+#     s_user = instance
+#     prof = Profile_photo.objects.create(user=s_user)
+#     prof.save()
+
+
+
+
+
+
+
+
+
 

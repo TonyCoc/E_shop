@@ -6,11 +6,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-nlr3=a$65g7*k#ulb(go!sb(&!0a0!&ux@%1^r-xc(#jumx(ve'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = int(os.environ.get('DEBUG',default=1))
+DEBUG = int(os.environ.get('DEBUG',default=0))
 
-ALLOWED_HOSTS = [""]
-
-CSRF_TRUSTED_ORIGINS = [""]
+ALLOWED_HOSTS = ["127.0.0.1"]
+CSRF_TRUSTED_ORIGINS = ["http://127.0.0.1"]
 
 # Application definition
 
@@ -21,9 +20,19 @@ INSTALLED_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
-    "whitenoise.runserver_nostatic",
+    'django.contrib.sites',
     'django.contrib.staticfiles',
     'django_render_partial',
+
+    "whitenoise.runserver_nostatic", #serving static files in deployment
+
+    ###
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    'allauth.socialaccount.providers.google',
+    ###
+
     # my_apps
     'eshop_account',
     'eshop_products',
@@ -134,3 +143,30 @@ WHITENOISE_AUTOREFRESH = True
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+SITE_ID = 4
+
+SOCIALACCOUNT_PROVIDERS = {
+    'google': {
+        'SCOPE': [
+            'profile',
+            'email',
+        ],
+        'AUTH_PARAMS': {
+            'access_type': 'offline',
+        }
+    }
+}
+SOCIALACCOUNT_LOGIN_ON_GET = True
+
+AUTHENTICATION_BACKENDS = [
+
+    # Needed to login by username in Django admin, regardless of `allauth`
+    'django.contrib.auth.backends.ModelBackend',
+
+    # `allauth` specific authentication methods, such as login by e-mail
+    'allauth.account.auth_backends.AuthenticationBackend',
+
+]
+LOGIN_REDIRECT_URL = "/"
+LOGOUT_REDIRECT_URL = "/"
