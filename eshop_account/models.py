@@ -33,7 +33,7 @@ def post_save_Reset_code(instance , sender , created ,**kwargs ):
         except:
             create_obj = Reset_password.objects.create(user = instance,reset_code = str(uuid.uuid4()).replace('-','').upper()[:6] )
             create_obj.save()
-
+Reset_password.objects
 @receiver(pre_save,sender=Reset_password)
 def pre_save_Reset_code(instance,sender,**kwargs):
     if instance.reset_try_count >= 5:
